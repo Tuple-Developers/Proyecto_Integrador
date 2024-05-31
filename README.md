@@ -83,3 +83,4 @@ broker.consultar_transacciones()
 
 ### Colaboradores
 - Juan Ignacio Moreno.
+- Jorge Antonio Marchisone(jmarchisone)
