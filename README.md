@@ -80,3 +80,6 @@ usuario_alice.mostrar_portafolio()
 
 # Consultar historial de transacciones
 broker.consultar_transacciones()
+
+### Colaboradores
+- Juan Ignacio Moreno.
