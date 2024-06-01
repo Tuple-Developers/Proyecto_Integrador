@@ -1,5 +1,9 @@
 # Broker de Acciones
 
+### Colaboradores
+- Juan Ignacio Moreno.
+- Jorge Antonio Marchisone(jmarchisone)
+
 ## Descripción
 
 Esta aplicación simula un broker de acciones, permitiendo a los usuarios gestionar sus cuentas, comprar y vender acciones, y consultar sus transacciones. Está construida en Python y utiliza un enfoque orientado a objetos para modelar los diferentes componentes del sistema.
@@ -80,7 +84,3 @@ usuario_alice.mostrar_portafolio()
 
 # Consultar historial de transacciones
 broker.consultar_transacciones()
-
-### Colaboradores
-- Juan Ignacio Moreno.
-- Jorge Antonio Marchisone(jmarchisone)
