@@ -6,6 +6,7 @@
 - Martin Ernesto Olmedo(Martin-Olmedo98)
 - Fabián Ricardo Perisset(FabianRicardoPerisset)
 - Sabrina Loza(Saloza14)
+- Facundo Lozano(facundoLozano0)
   
 ## Descripción
 
