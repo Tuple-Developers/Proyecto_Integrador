@@ -3,7 +3,7 @@
 ### Colaboradores
 - Juan Ignacio Moreno(Monky033)
 - Jorge Antonio Marchisone(jmarchisone)
-- Martin Ernesto Olmedo
+- Martin Ernesto Olmedo(Martin-Olmedo98)
 - Fabián Ricardo Perisset(FabianRicardoPerisset)
 
 ## Descripción
