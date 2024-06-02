@@ -1,7 +1,7 @@
 # Broker de Acciones
 
 ### Colaboradores
-- Juan Ignacio Moreno.
+- Juan Ignacio Moreno(Monky033)
 - Jorge Antonio Marchisone(jmarchisone)
 - Martin Ernesto Olmedo
 - Fabián Ricardo Perisset(FabianRicardoPerisset)
