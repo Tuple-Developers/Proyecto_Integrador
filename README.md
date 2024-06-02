@@ -4,6 +4,7 @@
 - Juan Ignacio Moreno.
 - Jorge Antonio Marchisone(jmarchisone)
 - Martin Ernesto Olmedo
+- Fabián Ricardo Perisset(FabianRicardoPerisset)
 
 ## Descripción
 
