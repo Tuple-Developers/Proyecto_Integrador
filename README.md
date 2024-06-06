@@ -2,7 +2,7 @@
 
 ### Colaboradores
 - Juan Ignacio Moreno(Monky033)
-- Jorge Antonio Marchisone(jmarchisone)
+- Jorge Antonio Marchisone(jmarchisone)(Coordinador)
 - Martin Ernesto Olmedo(Martin-Olmedo98)
 - Fabián Ricardo Perisset(FabianRicardoPerisset)
 - Sabrina Loza(Saloza14)
@@ -29,6 +29,6 @@ Jorge Antonio Marchisone
 ### Base de datos
 Facundo Lozano  
 Juan Ignacio Moreno
-### Ética
+## Ética
 Sabrina Loza  
 Fabián Ricardo Perisset
