@@ -19,10 +19,15 @@ CREATE TABLE PORTAFOLIO (
 );
 
 CREATE TABLE ACTIVO (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) UNIQUE NOT NULL,
-    precio_compra DECIMAL(15, 2) NOT NULL,
-    precio_venta DECIMAL(15, 2) NOT NULL
+    id INT PRIMARY KEY auto_increment,
+    nombre VARCHAR(100) NOT NULL,
+    simbolo VARCHAR(10) NOT NULL,
+    descripcion TEXT,
+    precio_compra DECIMAL(12,2) NOT NULL,
+    precio_venta DECIMAL(12,2) NOT NULL,
+    volumen_disponible INTEGER NOT NULL,
+    ultima_actualizacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    activo BOOLEAN DEFAULT true
 );
 
 CREATE TABLE PORTAFOLIO_ACTIVO (
