@@ -135,6 +135,19 @@ values
 );
 
 insert into
+portafolio (usuario_email, total_invertido, rendimiento_total)
+values
+('juan.perez@example.com', 500000, 50000),
+('maria.gomez@example.com', 300000, 30000),
+('carlos.lopez@example.com', 200000, 20000),
+('ana.martinez@example.com', 400000, 40000),
+('luis.sanchez@example.com', 100000, 10000),
+('laura.diaz@example.com', 600000, 60000),
+('jose.fernandez@example.com', 700000, 70000),
+('marta.garcia@example.com', 800000, 80000),
+('pedro.ramirez@example.com', 900000, 90000),
+('sofia.torres@example.com', 1000000, 100000);
+insert into
 activo (
     nombre,
     simbolo,
