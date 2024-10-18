@@ -16,10 +16,15 @@ CREATE TABLE PORTAFOLIO (
 );
 
 CREATE TABLE ACTIVO (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) UNIQUE NOT NULL,
-    precio_compra DECIMAL(15, 2) NOT NULL,
-    precio_venta DECIMAL(15, 2) NOT NULL
+    id INT PRIMARY KEY auto_increment,
+    nombre VARCHAR(100) NOT NULL,
+    simbolo VARCHAR(10) NOT NULL,
+    descripcion TEXT,
+    precio_compra DECIMAL(12,2) NOT NULL,
+    precio_venta DECIMAL(12,2) NOT NULL,
+    volumen_disponible INTEGER NOT NULL,
+    ultima_actualizacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    activo BOOLEAN DEFAULT true
 );
 
 CREATE TABLE PORTAFOLIO_ACTIVO (
@@ -45,11 +50,10 @@ CREATE TABLE TRANSACCION (
     FOREIGN KEY (activo_id) REFERENCES ACTIVO(id)
 );
 
--- DATOS DE EJEMPLO
-
--- Insertar ejemplos en la tabla USUARIO
-insert into usuario (email, cuil, nombre, apellido, password, saldo)
-values(
+insert into
+usuario (email, cuil, nombre, apellido, password, saldo)
+values
+(
     'juan.perez@example.com',
     '20-12345678-9',
     'Juan',
@@ -67,7 +71,7 @@ values(
 ),
 (
     'carlos.lopez@example.com',
-    '23-11223344-5',
+    '23-23456789-1',
     'Carlos',
     'Lopez',
     'password789',
@@ -75,37 +79,82 @@ values(
 ),
 (
     'ana.martinez@example.com',
-    '24-55667788-1',
+    '24-34567890-2',
     'Ana',
     'Martinez',
-    'password101',
+    'password012',
     1000000
 ),
 (
     'luis.sanchez@example.com',
-    '21-99887766-2',
+    '25-45678901-3',
     'Luis',
     'Sanchez',
-    'password202',
+    'password345',
+    1000000
+),
+(
+    'laura.diaz@example.com',
+    '26-56789012-4',
+    'Laura',
+    'Diaz',
+    'password678',
+    1000000
+),
+(
+    'jose.fernandez@example.com',
+    '27-67890123-5',
+    'Jose',
+    'Fernandez',
+    'password901',
+    1000000
+),
+(
+    'marta.garcia@example.com',
+    '28-78901234-6',
+    'Marta',
+    'Garcia',
+    'password234',
+    1000000
+),
+(
+    'pedro.ramirez@example.com',
+    '29-89012345-7',
+    'Pedro',
+    'Ramirez',
+    'password567',
+    1000000
+),
+(
+    'sofia.torres@example.com',
+    '30-90123456-8',
+    'Sofia',
+    'Torres',
+    'password890',
     1000000
 );
 
--- Insertar ejemplos en la tabla ACTIVO
 insert into
-activo (nombre, precio_compra, precio_venta)
+activo (
+    nombre,
+    simbolo,
+    descripcion,
+    precio_compra,
+    precio_venta,
+    volumen_disponible
+)
 values
-('Acciones ABC', 100.00, 110.00),
-('Bonos XYZ', 200.00, 210.00),
-('Fondo Mutuo DEF', 150.00, 160.00),
-('ETF GHI', 300.00, 310.00),
-('Oro', 1800.00, 1850.00),
-('Plata', 25.00, 27.00),
-('Criptomoneda BTC', 45000.00, 46000.00),
-('Criptomoneda ETH', 3000.00, 3100.00),
-('Acciones JKL', 50.00, 55.00),
-('Bonos MNO', 1000.00, 1050.00);
+('Grupo Financiero Galicia', 'GGAL', 'Banco líder en Argentina', 5800, 5900, 2880),
+('Ternium Argentina', 'TXAR', 'Productor de acero', 790, 800, 1020),
+('Pampa Energía', 'PAMP', 'Empresa de energía', 3020, 3100, 1990),
+('Telecom Argentina', 'TECO2', 'Proveedor de telecomunicaciones', 1820, 1920, 419),
+('Aluar', 'ALUA', 'Productor de aluminio', 843, 849, 810),
+('BBVA Banco Francés', 'BBAR', 'Banco comercial', 4650, 4715, 222),
+('Banco Macro', 'BMA', 'Banco comercial', 8650, 8850, 318),
+('Edenor', 'EDN', 'Distribuidor de electricidad', 1340, 1375, 4722),
+('Mirgor', 'MIRG', 'Fabricante de productos electrónicos', 20425, 21800, 5740),
+('Central Puerto', 'CEPU', 'Generador de energía eléctrica', 1205, 1250, 1270);
 
--- Insertar ejemplos en la tabla TRANSACCION
 insert into
 transaccion (
     usuario_email,
@@ -122,8 +171,8 @@ values
     1,
     'compra',
     10,
-    100.00,
-    1.00,
+    1500.00,
+    15.00,
     '2023-10-01 10:00:00'
 ),
 (
@@ -131,17 +180,17 @@ values
     2,
     'venta',
     5,
-    200.00,
-    2.00,
+    1250.00,
+    12.50,
     '2023-10-02 11:00:00'
 ),
 (
     'carlos.lopez@example.com',
     3,
     'compra',
-    8,
-    150.00,
-    1.50,
+    2,
+    6600.00,
+    66.00,
     '2023-10-03 12:00:00'
 ),
 (
@@ -149,151 +198,75 @@ values
     4,
     'venta',
     3,
-    300.00,
-    3.00,
+    2100.00,
+    21.00,
     '2023-10-04 13:00:00'
 ),
 (
     'luis.sanchez@example.com',
     5,
     'compra',
-    2,
-    1800.00,
-    18.00,
+    1,
+    2800.00,
+    28.00,
     '2023-10-05 14:00:00'
 ),
 (
-    'juan.perez@example.com',
+    'laura.diaz@example.com',
     6,
     'venta',
-    20,
-    25.00,
-    0.25,
+    4,
+    1400.00,
+    14.00,
     '2023-10-06 15:00:00'
 ),
 (
-    'maria.gomez@example.com',
+    'jose.fernandez@example.com',
     7,
     'compra',
-    1,
-    45000.00,
-    450.00,
+    6,
+    1200.00,
+    12.00,
     '2023-10-07 16:00:00'
 ),
 (
-    'carlos.lopez@example.com',
+    'marta.garcia@example.com',
     8,
     'venta',
-    4,
-    3000.00,
-    30.00,
+    7,
+    3500.00,
+    35.00,
     '2023-10-08 17:00:00'
 ),
 (
-    'ana.martinez@example.com',
+    'pedro.ramirez@example.com',
     9,
     'compra',
-    15,
-    50.00,
-    0.50,
+    8,
+    4800.00,
+    48.00,
     '2023-10-09 18:00:00'
 ),
 (
-    'luis.sanchez@example.com',
+    'sofia.torres@example.com',
     10,
     'venta',
-    7,
-    1000.00,
-    10.00,
-    '2023-10-10 19:00:00'
-),
-(
-    'juan.perez@example.com',
-    1,
-    'venta',
-    5,
-    110.00,
-    1.10,
-    '2023-10-11 10:00:00'
-),
-(
-    'maria.gomez@example.com',
-    2,
-    'compra',
-    10,
-    210.00,
-    2.10,
-    '2023-10-12 11:00:00'
-),
-(
-    'carlos.lopez@example.com',
-    3,
-    'venta',
-    4,
-    160.00,
-    1.60,
-    '2023-10-13 12:00:00'
-),
-(
-    'ana.martinez@example.com',
-    4,
-    'compra',
-    6,
-    310.00,
-    3.10,
-    '2023-10-14 13:00:00'
-),
-(
-    'luis.sanchez@example.com',
-    5,
-    'venta',
-    1,
-    1850.00,
-    18.50,
-    '2023-10-15 14:00:00'
-),
-(
-    'juan.perez@example.com',
-    6,
-    'compra',
-    25,
-    27.00,
-    0.27,
-    '2023-10-16 15:00:00'
-),
-(
-    'maria.gomez@example.com',
-    7,
-    'venta',
-    2,
-    46000.00,
-    460.00,
-    '2023-10-17 16:00:00'
-),
-(
-    'carlos.lopez@example.com',
-    8,
-    'compra',
-    3,
-    3100.00,
-    31.00,
-    '2023-10-18 17:00:00'
-),
-(
-    'ana.martinez@example.com',
     9,
-    'venta',
-    10,
-    55.00,
-    0.55,
-    '2023-10-19 18:00:00'
-),
-(
-    'luis.sanchez@example.com',
-    10,
-    'compra',
-    5,
-    1050.00,
-    10.50,
-    '2023-10-20 19:00:00'
+    450.00,
+    4.50,
+    '2023-10-10 19:00:00'
 );
+
+insert into
+portafolio_activo (portafolio_id, activo_id, cantidad)
+values
+(1, 1, 10),
+(2, 2, 5),
+(3, 3, 2),
+(4, 4, 3),
+(5, 5, 1),
+(6, 6, 4),
+(7, 7, 6),
+(8, 8, 7),
+(9, 9, 8),
+(10, 10, 9);
