@@ -4,7 +4,7 @@
 https://docs.google.com/spreadsheets/d/1LL8X0-WoadNC5Rn-EOkjIRzQSmQNItS-e-FEEm2XIC8/edit?usp=sharing
 
 ### Colaboradores
-- Juan Ignacio Moreno(Monky033)
+- Juan Ignacio Moreno(JuanIgnaciom03)
 - Jorge Antonio Marchisone(jmarchisone)(Coordinador)
 - Martin Ernesto Olmedo(Martin-Olmedo98)
 - Fabián Ricardo Perisset(FabianRicardoPerisset)
