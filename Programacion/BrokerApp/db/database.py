@@ -1,14 +1,14 @@
-importar mysql.connector
-Error al importar desde mysql.connector
-desde configuración importar DB_CONFIG
+import mysql.connector
+from mysql.connector import Error
+from config.py import DB_CONFIG
 
 
-clase DatabaseConnection:
-    @metodostatico
-    definición obtener_conexión():
-        intentar:
-            conexión = mysql.connector.connect(**DB_CONFIG)
-            conexión de retorno
-        excepto Error como e:
+class DatabaseConnection:
+    @staticmethod
+    def obtener_conexión():
+        try:
+            connection = mysql.connector.connect(**DB_CONFIG)
+            return connection
+        except Error as e:
             print(f"Error al conectar a la base de datos: {e}")
-            devolver Ninguno
+            return None
