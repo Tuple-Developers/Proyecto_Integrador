@@ -5,7 +5,7 @@ from config import DB_CONFIG
 
 class DatabaseConnection:
     @staticmethod
-    def obtener_conexión():
+    def get_connection():
         try:
             connection = mysql.connector.connect(**DB_CONFIG)
             return connection
