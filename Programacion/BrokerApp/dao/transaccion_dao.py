@@ -1,4 +1,4 @@
-from db.database import DatabaseConnection
+from db.database import DatabaseConnection 
 from models.transaccion import Transaccion
 from decimal import Decimal
 
@@ -83,4 +83,26 @@ class TransaccionDAO:
         finally:
             if connection:
                 cursor.close()
+                connection.close()
+
+    @staticmethod
+    def obtener_historial(email):
+        try:
+            connection = DatabaseConnection.get_connection()
+            cursor = connection.cursor(dictionary=True)
+
+            sql = """
+                SELECT t.*, a.nombre as activo_nombre, a.simbolo
+                FROM TRANSACCION t
+                JOIN ACTIVO a ON t.activo_id = a.id
+                WHERE t.usuario_email = %s
+                ORDER BY t.fecha DESC
+            """
+            cursor.execute(sql, (email,))
+            return cursor.fetchall()
+        except Exception as e:
+            print(f"Error al obtener historial de transacciones: {e}")
+            return None
+        finally:
+            if connection:
                 connection.close()
