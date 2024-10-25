@@ -21,7 +21,8 @@ def mostrar_menu_usuario():
     print("2. Ver portafolio")
     print("3. Comprar acciones")
     print("4. Vender acciones")
-    print("5. Cerrar sesión")
+    print("5. Ver historial de transacciones")
+    print("6. Cerrar sesión")
     return input("Seleccione una opción: ")
 
 
@@ -187,6 +188,28 @@ def vender_acciones(usuario):
         print("Por favor ingrese valores numéricos válidos")
 
 
+def mostrar_historial_transacciones(usuario):
+    historial = TransaccionDAO.obtener_historial(usuario.email)
+    if historial:
+        print("\n=== Historial de Transacciones ===")
+        for transaccion in historial:
+            print(f"\nFecha: {transaccion['fecha']}")
+            print(f"Activo: {transaccion['activo_nombre']} ({transaccion['simbolo']})")
+            print(f"Tipo: {transaccion['tipo'].upper()}")
+            print(f"Cantidad: {transaccion['cantidad']}")
+            print(f"Precio unitario: ${transaccion['precio']:,.2f}")
+            print(f"Comisión: ${transaccion['comision']:,.2f}")
+            monto_total = transaccion["precio"] * transaccion["cantidad"]
+            if transaccion["tipo"] == "compra":
+                monto_total += transaccion["comision"]
+                print(f"Monto total pagado: ${monto_total:,.2f}")
+            else:
+                monto_total -= transaccion["comision"]
+                print(f"Monto total recibido: ${monto_total:,.2f}")
+    else:
+        print("No se encontraron transacciones")
+
+
 def main():
     usuario_actual = None
 
@@ -213,6 +236,8 @@ def main():
             elif opcion == "4":
                 vender_acciones(usuario_actual)
             elif opcion == "5":
+                mostrar_historial_transacciones(usuario_actual)
+            elif opcion == "6":
                 usuario_actual = None
                 print("Sesión cerrada")
             else:
