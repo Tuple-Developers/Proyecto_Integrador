@@ -10,13 +10,10 @@ class TransaccionDAO:
             connection = DatabaseConnection.get_connection()
             cursor = connection.cursor()
 
-            # Iniciar transacción
             connection.start_transaction()
 
-            # Verificar el ID del activo
             print(f"ID del activo: {transaccion.activo_id}")
 
-            # Registrar la transacción
             sql_transaccion = """
                 INSERT INTO TRANSACCION 
                 (usuario_email, activo_id, tipo, cantidad, precio, comision, fecha)

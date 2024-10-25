@@ -72,6 +72,9 @@ def mostrar_portafolio(usuario):
                 print(f"Cantidad: {activo['cantidad']}")
                 print(f"Precio de compra: ${activo['precio_compra']:,.2f}")
                 print(f"Precio de venta actual: ${activo['precio_venta']:,.2f}")
+                print(
+                    f"Rendimiento: ${activo['precio_venta']-activo['precio_compra']:,.2f}"
+                )
     else:
         print("No se encontraron activos en el portafolio")
 
@@ -82,7 +85,7 @@ def comprar_acciones(usuario):
         print("No hay activos disponibles para comprar")
         return
 
-    print("\n=== Activos Disponibles ===")
+    print("\n=== Activos Disponibles (Comisión 1,5%) ===")
     for activo in activos:
         print(f"\nID: {activo['id']}")
         print(f"Nombre: {activo['nombre']} ({activo['simbolo']})")
@@ -130,7 +133,7 @@ def vender_acciones(usuario):
         print("No tiene activos para vender")
         return
 
-    print("\n=== Sus Activos ===")
+    print("\n=== Sus Activos (Comisión 1,5%) ===")
     activos_disponibles = {}
     for activo in portafolio:
         if activo["cantidad"] and activo["cantidad"] > 0:
