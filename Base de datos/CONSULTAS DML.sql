@@ -1,54 +1,4 @@
-CREATE TABLE USUARIO (
-    email VARCHAR(100) PRIMARY KEY,
-    cuil VARCHAR(20) UNIQUE NOT NULL,
-    nombre VARCHAR(40) NOT NULL,
-    apellido VARCHAR(40) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    saldo DECIMAL(15, 2) NOT NULL DEFAULT 1000000
-);
-
-CREATE TABLE PORTAFOLIO (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_email VARCHAR(100) UNIQUE NOT NULL,
-    total_invertido DECIMAL(15, 2) NOT NULL DEFAULT 0,
-    rendimiento_total DECIMAL(15, 2) NOT NULL DEFAULT 0,
-    FOREIGN KEY (usuario_email) REFERENCES USUARIO(email)
-);
-
-CREATE TABLE ACTIVO (
-    id INT PRIMARY KEY auto_increment,
-    nombre VARCHAR(100) NOT NULL,
-    simbolo VARCHAR(10) NOT NULL,
-    descripcion TEXT,
-    precio_compra DECIMAL(12,2) NOT NULL,
-    precio_venta DECIMAL(12,2) NOT NULL,
-    volumen_disponible INTEGER NOT NULL,
-    ultima_actualizacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    activo BOOLEAN DEFAULT true
-);
-
-CREATE TABLE PORTAFOLIO_ACTIVO (
-    portafolio_id INT NOT NULL,
-    activo_id INT NOT NULL,
-    cantidad INT NOT NULL,
-    PRIMARY KEY (portafolio_id, activo_id),
-    FOREIGN KEY (portafolio_id) REFERENCES PORTAFOLIO(id),
-    FOREIGN KEY (activo_id) REFERENCES ACTIVO(id)
-);
-
--- Cuidado al crear, tipo solo puede ser compra o venta
-CREATE TABLE TRANSACCION (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_email  VARCHAR(100) NOT NULL,
-    activo_id INT NOT NULL,
-    tipo ENUM('compra', 'venta') NOT NULL,
-    cantidad INT NOT NULL,
-    precio DECIMAL(15, 2) NOT NULL,
-    comision DECIMAL(15, 2) NOT NULL,
-    fecha DATETIME NOT NULL,
-    FOREIGN KEY (usuario_email) REFERENCES USUARIO(email),
-    FOREIGN KEY (activo_id) REFERENCES ACTIVO(id)
-);
+--Inserción de datos
 
 insert into
 usuario (email, cuil, nombre, apellido, password, saldo)
@@ -221,3 +171,46 @@ values
 (8, 9, 1),
 (9, 10, 4),
 (10, 1, 5);
+
+--Consultas de update
+UPDATE USUARIO
+SET saldo = saldo + 5000
+WHERE email = 'juan.perez@example.com';
+
+UPDATE USUARIO
+SET apellido = 'Rodriguez'
+WHERE email = 'maria.gomez@example.com';
+
+UPDATE USUARIO
+SET password = 'newpassword123'
+WHERE email = 'carlos.lopez@example.com';
+
+UPDATE ACTIVO
+SET precio_compra = precio_compra * 1.05, precio_venta = precio_venta * 1.05
+WHERE simbolo = 'TXAR';
+
+UPDATE ACTIVO
+SET precio_compra = precio_compra * 0.95, precio_venta = precio_venta * 0.95
+WHERE simbolo = 'BBAR';
+
+--Muestra todas las acciones compradas de todos los usuarios, y con que precio.
+SELECT u.nombre, u.apellido, p.usuario_email, pa.cantidad, a.id as id_activo, a.nombre, a.simbolo, a.precio_compra, a.precio_venta 
+FROM PORTAFOLIO p
+LEFT JOIN PORTAFOLIO_ACTIVO pa ON p.id = pa.portafolio_id
+LEFT JOIN ACTIVO a ON pa.activo_id = a.id
+INNER JOIN usuario u ON p.usuario_email = u.email
+
+--Muestra los usuarios que mas transacciones realizan. Puede usarse para aplicar alguna campaña de marketing.
+SELECT u.nombre, u.apellido, u.email, 
+COUNT(t.id) AS cantidad_transacciones
+FROM USUARIO u
+LEFT JOIN TRANSACCION t ON u.email = t.usuario_email
+GROUP BY u.email, u.nombre, u.apellido
+ORDER BY cantidad_transacciones DESC;
+
+--Mostrar la cantidad total de transacciones que se han realizado por cada activo. Permite conocer las acciones más populares.
+SELECT a.nombre, a.simbolo, 
+COUNT(t.id) AS cantidad_transacciones
+FROM ACTIVO a
+LEFT JOIN TRANSACCION t ON a.id = t.activo_id
+GROUP BY a.id, a.nombre, a.simbolo;
