@@ -28,6 +28,7 @@ class UsuarioDAO:
             return False
         finally:
             if connection:
+                cursor.close()
                 connection.close()
 
     @staticmethod
@@ -48,4 +49,5 @@ class UsuarioDAO:
             return None
         finally:
             if connection:
+                cursor.close()
                 connection.close()

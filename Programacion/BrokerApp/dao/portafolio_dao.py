@@ -22,4 +22,5 @@ class PortafolioDAO:
             return None
         finally:
             if connection:
+                cursor.close()
                 connection.close()

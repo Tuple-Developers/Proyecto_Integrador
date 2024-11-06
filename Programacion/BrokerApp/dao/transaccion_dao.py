@@ -1,4 +1,4 @@
-from db.database import DatabaseConnection 
+from db.database import DatabaseConnection
 from models.transaccion import Transaccion
 from decimal import Decimal
 
@@ -72,6 +72,21 @@ class TransaccionDAO:
                     ),
                 )
 
+            # Actualizar volumen de activos CORRECCIÓN DE PROFE IVANA
+            if transaccion.tipo == "compra":
+                sql_volumen = """
+                    UPDATE ACTIVO
+                    SET volumen_disponible = volumen_disponible - %s
+                    WHERE id = %s
+                """
+            else:
+                sql_volumen = """
+                    UPDATE ACTIVO
+                    SET volumen_disponible = volumen_disponible + %s
+                    WHERE id = %s
+                """
+            cursor.execute(sql_volumen, (transaccion.cantidad, transaccion.activo_id))
+
             connection.commit()
             return True
 
@@ -105,4 +120,5 @@ class TransaccionDAO:
             return None
         finally:
             if connection:
+                cursor.close()
                 connection.close()

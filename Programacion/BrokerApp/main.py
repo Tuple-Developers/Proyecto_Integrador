@@ -91,6 +91,8 @@ def comprar_acciones(usuario):
         print(f"\nID: {activo['id']}")
         print(f"Nombre: {activo['nombre']} ({activo['simbolo']})")
         print(f"Precio de compra: ${activo['precio_compra']:,.2f}")
+        # CORRECCION MOSTRAR VOLUMEN PROFE IVANA
+        print(f"Volumen disponible: {activo['volumen_disponible']}")
 
     try:
         activo_id = int(input("\nIngrese el ID del activo a comprar: "))
@@ -99,6 +101,11 @@ def comprar_acciones(usuario):
         activo_seleccionado = next((a for a in activos if a["id"] == activo_id), None)
         if not activo_seleccionado:
             print("Activo no encontrado")
+            return
+
+        # CORRECCION VOLUMEN DE ACCIONES PROFE IVANA
+        if cantidad > activo_seleccionado["volumen_disponible"]:
+            print("No hay suficiente volumen disponible")
             return
 
         precio_total = activo_seleccionado["precio_compra"] * cantidad
