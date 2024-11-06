@@ -66,6 +66,7 @@ def mostrar_portafolio(usuario):
     portafolio = PortafolioDAO.obtener_portafolio(usuario.email)
     if portafolio:
         print("\n=== Portafolio de Inversiones ===")
+        rendimiento_total = 0
         for activo in portafolio:
             if activo["cantidad"] and activo["cantidad"] > 0:
                 print(f"\nID: {activo['id_activo']}")
@@ -73,9 +74,12 @@ def mostrar_portafolio(usuario):
                 print(f"Cantidad: {activo['cantidad']}")
                 print(f"Precio de compra: ${activo['precio_compra']:,.2f}")
                 print(f"Precio de venta actual: ${activo['precio_venta']:,.2f}")
-                print(
-                    f"Rendimiento: ${activo['precio_venta']-activo['precio_compra']:,.2f}"
+                rendimiento_acciones = (activo["precio_venta"] * activo["cantidad"]) - (
+                    activo["precio_compra"] * activo["cantidad"]
                 )
+                print(f"Rendimiento: ${rendimiento_acciones:,.2f}")
+                rendimiento_total += rendimiento_acciones
+        print(f"\n\nRendimiento total: {rendimiento_total}")
     else:
         print("No se encontraron activos en el portafolio")
 
